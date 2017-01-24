@@ -13,17 +13,7 @@ client.on('connect', function () {
 })
 
 
-client.on('home/livingroom/temperature', function (topic, message) {
-  // message is Buffer 
-  console.log(message.toString());
-});
-
-client.on('home/livingroom/humidity', function (topic, message) {
-  // message is Buffer 
-  console.log(message.toString());
-});
-
-client.on('home/livingroom/ldr', function (topic, message) {
+client.on('message', function (topic, message) {
   // message is Buffer 
   console.log(message.toString());
 });
