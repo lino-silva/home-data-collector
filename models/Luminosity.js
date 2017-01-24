@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 
 const luminositySchema = mongoose.Schema({
-  value: Number
+  value: Number,
+  room: String
 }, {
   timestamps: true,
 });
