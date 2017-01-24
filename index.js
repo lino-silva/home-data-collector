@@ -8,7 +8,8 @@ mongoose.connect('mongodb://localhost/home-data');
 const client  = mqtt.connect('mqtt://localhost')
 
 client.on('connect', function () {
-  client.subscribe('home/#')
+  console.log('Connected!');
+  client.subscribe('home/#');
 })
 
 
