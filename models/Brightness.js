@@ -2,16 +2,16 @@
 
 const mongoose = require('mongoose');
 
-const luminositySchema = mongoose.Schema({
+const brightnessSchema = mongoose.Schema({
   value: Number,
   room: String
 }, {
   timestamps: true,
 });
 
-luminositySchema.pre('save', function (next) {
+brightnessSchema.pre('save', function (next) {
   this.lastUpdated = new Date();
   next();
 });
 
-module.exports = mongoose.model('Luminosity', luminositySchema);
+module.exports = mongoose.model('Brightness', brightnessSchema);
