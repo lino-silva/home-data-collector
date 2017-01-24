@@ -1,0 +1,25 @@
+{
+  "name": "home-data-collector",
+  "version": "1.0.0",
+  "description": "Data collector MQTT -> MongoDB",
+  "main": "index.js",
+  "dependencies": {
+    "mongoose": "^4.7.8",
+    "mqtt": "^2.3.0",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lino-silva/home-data-collector.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lino-silva/home-data-collector/issues"
+  },
+  "homepage": "https://github.com/lino-silva/home-data-collector#readme"
+}
