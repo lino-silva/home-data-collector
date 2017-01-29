@@ -1,15 +1,32 @@
+'use strict';
+
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
 const Q = require('q');
 const Humidity = require('./models/Humidity');
 const Temperature = require('./models/Temperature');
 const Brightness = require('./models/Brightness');
-const NumberExtension = require('./extensions/Number')
+const NumberExtension = require('./extensions/Number');
 
 mongoose.Promise = Q.Promise;
 mongoose.connect('mongodb://localhost/home-data');
 
-const client  = mqtt.connect('mqtt://localhost')
+const client  = mqtt.connect('mqtt://localhost');
+const interval = 60000;
+const topicBlocked = { };
+const isTopicBlocked = (topic) => {
+  if (!Object.prototype.hasOwnProperty.call(topicBlocked, topic)) {
+    topicBlocked[topic] = false;
+  }
+
+  const previousValue = topicBlocked[topic];
+  topicBlocked[topic] = true;
+  setTimeout(() => {
+    topicBlocked[topic] = false;
+  }, interval);
+
+  return previousValue;
+}
 
 client.on('connect', function () {
   console.log('Connected!');
@@ -18,7 +35,14 @@ client.on('connect', function () {
 
 client.on('message', function (topic, buffer) {
   // message is Buffer 
-  const message = buffer.toString()
+  const message = buffer.toString();
+
+  console.log(`Got message ${message} under ${topic}`)
+  if (isTopicBlocked(topic)) {
+    return;
+  }
+  
+  console.log(`Storing ${message} under ${topic}`)
   
   switch (topic) {
     case 'home/livingroom/temperature':
@@ -41,3 +65,5 @@ client.on('message', function (topic, buffer) {
     break;
   }
 });
+
+console.log('Listening to MQTT events')
